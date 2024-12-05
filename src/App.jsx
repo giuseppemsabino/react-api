@@ -29,14 +29,15 @@ function App() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3000/",{
+    e.preventDefault();
+    fetch("http://localhost:3000/", {
       method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body : JSON.stringify(formData)
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
     })
-    .then((res) => res.json())
-    .then((newArticle) => setArticles([...articles, newArticle]))
-    .catch((error) => console.error("Errore durante l'aggiunta:", error));
+      .then((response) => response.json())
+      .then((newArticle) => setArticles([...articles, newArticle]))
+      .catch((error) => console.error("Errore durante l'aggiunta:", error));
 
     setFormData({
       title: "",
@@ -44,7 +45,7 @@ function App() {
       content: "",
       category: "News",
       published: false,
-    })
+    });
   };
 
 
