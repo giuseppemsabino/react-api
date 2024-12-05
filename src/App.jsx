@@ -49,10 +49,19 @@ function App() {
   };
 
 
-  const handleDelete = (index) => {
-    const newArticles = [...articles];
-    newArticles.splice(index, 1);
-    setArticles(newArticles);
+  const handleDelete = (id) => {
+    fetch(`http://localhost:3000/${id}`,{
+      method: "DELETE"
+    })
+    .then((res)=> {
+      if(res.ok){
+        setArticles(articles.filter((article) => article.id !== id));
+      }else{
+        console.error("Errore di eliminazione");
+      }
+    })
+    .catch((error)=> console.error("Errore in DELETE:", error));
+    
   };
 
   return (
