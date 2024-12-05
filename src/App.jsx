@@ -13,8 +13,9 @@ function App() {
   useEffect(()=> {
     fetch("http://localhost:3000/")
     .then((res) => res.json())
-    .then((data) => console.log(data))
-    ;
+    .then((data) => setArticles(data))
+    .catch((error) => console.error("Errore nel recupero dei dati:", error));
+    
     
   },[])
 
@@ -28,15 +29,25 @@ function App() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    setArticles([...articles, formData]);
+    fetch("http://localhost:3000/",{
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body : JSON.stringify(formData)
+    })
+    .then((res) => res.json())
+    .then((newArticle) => setArticles([...articles, newArticle]))
+    .catch((error) => console.error("Errore durante l'aggiunta:", error));
+
     setFormData({
       title: "",
       image: "",
       content: "",
       category: "News",
       published: false,
-    });
+    })
   };
+
+
   const handleDelete = (index) => {
     const newArticles = [...articles];
     newArticles.splice(index, 1);
