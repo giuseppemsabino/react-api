@@ -29,13 +29,12 @@ function App() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    e.preventDefault();
     fetch("http://localhost:3000/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     })
-      .then((response) => response.json())
+      .then((res) => res.json())
       .then((newArticle) => setArticles([...articles, newArticle]))
       .catch((error) => console.error("Errore durante l'aggiunta:", error));
 
